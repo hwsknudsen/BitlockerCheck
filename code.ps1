@@ -1,0 +1,1 @@
+Get-ADComputer -filter * -SearchBase "OU=Computers,DC=domain,DC=local" -Properties *| Select-Object -Property Name, managedBy, @{Name = 'BDEPropCOunt'; Expression = {((Get-ADObject -Filter 'objectClass -eq "msFVE-RecoveryInformation"' -SearchBase $_.DistinguishedName).propertycount) -gt 1}} | sort BDEPropCOunt | ft -AutoSize
